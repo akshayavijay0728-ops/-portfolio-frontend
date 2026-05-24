@@ -492,7 +492,7 @@ export default function Admin({
                 <div className="upload-container">
                   <div className="upload-preview">
                     {settingsForm.avatar ? (
-                      <img src={`${api.base}${settingsForm.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                      <img src={`${api.base}${settingsForm.avatar}?t=${Date.now()}`} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
                     ) : (
                       '👤'
                     )}

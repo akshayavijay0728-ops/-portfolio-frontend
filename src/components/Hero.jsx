@@ -43,7 +43,7 @@ export default function Hero({ settings, onContactClick }) {
 
   const name = settings?.name || "Akshaya Vijay";
   const bio = settings?.bio || "Building robust full-stack applications and deploying machine learning solutions using Python, React, and cloud platforms.";
-  const avatarUrl = settings?.avatar ? `${api.base}${settings.avatar}` : null;
+  const avatarUrl = settings?.avatar ? `${api.base}${settings.avatar}?t=${Date.now()}` : null;
   const resumeUrl = settings?.resume ? `${api.base}${settings.resume}` : null;
   
   const stats = settings?.stats || {
