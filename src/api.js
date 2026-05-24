@@ -10,6 +10,22 @@ const getHeaders = () => {
   };
 };
 
+// Robust helper to safely parse JSON or plain-text backend errors (like Rate Limiter blocks)
+const handleResponse = async (res) => {
+  const text = await res.text();
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (err) {
+    data = { error: text || 'Unknown server response error' };
+  }
+  
+  if (!res.ok) {
+    throw new Error(data.error || 'Request to server failed.');
+  }
+  return data;
+};
+
 export const api = {
   // Base URL helper
   base: API_BASE,
@@ -21,8 +37,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Login failed');
+    const data = await handleResponse(res);
     if (data.token) {
       localStorage.setItem('admin_token', data.token);
     }
@@ -40,8 +55,7 @@ export const api = {
   // Settings (Public & Admin)
   async getSettings() {
     const res = await fetch(`${API_BASE}/api/settings`, { headers: getHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch settings');
-    return res.json();
+    return handleResponse(res);
   },
 
   async saveSettingsBulk(data) {
@@ -50,16 +64,13 @@ export const api = {
       headers: getHeaders(),
       body: JSON.stringify({ data })
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to save settings');
-    return out;
+    return handleResponse(res);
   },
 
   // Projects
   async getProjects(category = 'all') {
     const res = await fetch(`${API_BASE}/api/projects?category=${category}`, { headers: getHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch projects');
-    return res.json();
+    return handleResponse(res);
   },
 
   async createProject(projectData) {
@@ -68,9 +79,7 @@ export const api = {
       headers: getHeaders(),
       body: JSON.stringify(projectData)
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to create project');
-    return out;
+    return handleResponse(res);
   },
 
   async updateProject(id, projectData) {
@@ -79,9 +88,7 @@ export const api = {
       headers: getHeaders(),
       body: JSON.stringify(projectData)
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to update project');
-    return out;
+    return handleResponse(res);
   },
 
   async deleteProject(id) {
@@ -89,16 +96,13 @@ export const api = {
       method: 'DELETE',
       headers: getHeaders()
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to delete project');
-    return out;
+    return handleResponse(res);
   },
 
   // Certifications
   async getCerts() {
     const res = await fetch(`${API_BASE}/api/certs`, { headers: getHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch certs');
-    return res.json();
+    return handleResponse(res);
   },
 
   async createCert(certData) {
@@ -107,9 +111,7 @@ export const api = {
       headers: getHeaders(),
       body: JSON.stringify(certData)
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to create certificate');
-    return out;
+    return handleResponse(res);
   },
 
   async deleteCert(id) {
@@ -117,9 +119,7 @@ export const api = {
       method: 'DELETE',
       headers: getHeaders()
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to delete certificate');
-    return out;
+    return handleResponse(res);
   },
 
   // Contact (Public submission & Admin reading)
@@ -129,15 +129,12 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(contactData)
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to submit message');
-    return out;
+    return handleResponse(res);
   },
 
   async getContacts() {
     const res = await fetch(`${API_BASE}/api/contact`, { headers: getHeaders() });
-    if (!res.ok) throw new Error('Failed to fetch contact inquiries');
-    return res.json();
+    return handleResponse(res);
   },
 
   async deleteContact(id) {
@@ -145,9 +142,7 @@ export const api = {
       method: 'DELETE',
       headers: getHeaders()
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Failed to delete inquiry');
-    return out;
+    return handleResponse(res);
   },
 
   // Uploads
@@ -163,9 +158,7 @@ export const api = {
       },
       body: formData
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Avatar upload failed');
-    return out; // { url }
+    return handleResponse(res);
   },
 
   async uploadResume(file) {
@@ -180,9 +173,7 @@ export const api = {
       },
       body: formData
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Resume upload failed');
-    return out; // { url, name }
+    return handleResponse(res);
   },
 
   async uploadProjectImage(file) {
@@ -197,8 +188,6 @@ export const api = {
       },
       body: formData
     });
-    const out = await res.json();
-    if (!res.ok) throw new Error(out.error || 'Project image upload failed');
-    return out; // { url }
+    return handleResponse(res);
   }
 };
