@@ -8,42 +8,42 @@ export default function About({ settings }) {
       category: "Languages",
       items: [
         { name: "Python", level: 95 },
-        { name: "JavaScript", level: 85 },
-        { name: "C++", level: 70 },
-        { name: "SQL", level: 80 }
+        { name: "SQL (PostgreSQL/MySQL)", level: 90 },
+        { name: "C++", level: 85 },
+        { name: "R Language", level: 65 }
       ]
     },
     {
-      category: "Web & Backend",
+      category: "Data Analysis",
       items: [
-        { name: "React", level: 90 },
-        { name: "Node.js", level: 85 },
-        { name: "Express.js", level: 80 },
-        { name: "HTML & CSS", level: 95 }
+        { name: "Power BI", level: 95 },
+        { name: "Excel (Advanced / DAX)", level: 90 },
+        { name: "Pandas & NumPy", level: 92 },
+        { name: "Matplotlib & Seaborn", level: 85 }
       ]
     },
     {
-      category: "AI & ML",
+      category: "DSA & Core",
       items: [
-        { name: "TensorFlow & Keras", level: 85 },
-        { name: "PyTorch", level: 75 },
-        { name: "Scikit-Learn", level: 90 },
-        { name: "NLP (NLTK/SpaCy)", level: 80 }
+        { name: "Data Structures", level: 88 },
+        { name: "Algorithms", level: 85 },
+        { name: "Problem Solving", level: 90 },
+        { name: "C++ DSA Coding", level: 80 }
       ]
     },
     {
-      category: "Tools & Cloud",
+      category: "Tools & Databases",
       items: [
         { name: "Git & GitHub", level: 90 },
-        { name: "MongoDB", level: 85 },
-        { name: "PostgreSQL", level: 75 },
-        { name: "Docker", level: 70 }
+        { name: "PostgreSQL", level: 85 },
+        { name: "MongoDB", level: 80 },
+        { name: "Jupyter Notebooks", level: 95 }
       ]
     }
   ];
 
   const skillsData = settings?.skills || defaultSkills;
-  const aboutText = settings?.about || "I am a passionate software engineer specializing in web application development and artificial intelligence. I enjoy bridging the gap between database endpoints and visual frontend elements, ensuring both system reliability and aesthetic excellence. My experience spans full-stack JavaScript architectures, database management, machine learning models, and custom data processing with Python.";
+  const aboutText = settings?.about || "I am a passionate software engineer and aspiring Data Analyst focused on data visualization, business intelligence, and algorithm design. I love extracting insights from raw data, building interactive Power BI dashboards, and solving complex problems using Data Structures and Algorithms (DSA) in Python and C++. My goal is to bridge the gap between engineering and analytics to deliver data-driven solutions.";
 
   return (
     <section id="about" className="about">

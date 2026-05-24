@@ -10,10 +10,11 @@ export default function Hero({ settings, onContactClick }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const titles = [
-    settings?.title || "Full Stack Developer",
+    settings?.title || "Aspiring Data Analyst",
+    "Power BI Developer",
     "Python Programmer",
-    "Machine Learning Engineer",
-    "Problem Solver"
+    "DSA Practitioner",
+    "Data Storyteller"
   ];
 
   // Typing speed logic
@@ -43,7 +44,7 @@ export default function Hero({ settings, onContactClick }) {
   }, [charIndex, isDeleting, titleIndex]);
 
   const name = settings?.name || "Akshaya Vijay";
-  const bio = settings?.bio || "Building robust full-stack applications and deploying machine learning solutions using Python, React, and cloud platforms.";
+  const bio = settings?.bio || "Transforming complex data into actionable business insights. Experienced in developing interactive Power BI dashboards, writing custom Python scripts, and solving algorithmic problems.";
   const avatarUrl = settings?.avatar ? `${api.base}${settings.avatar}?t=${Date.now()}` : profilePhoto;
   const resumeUrl = settings?.resume ? `${api.base}${settings.resume}` : null;
   
