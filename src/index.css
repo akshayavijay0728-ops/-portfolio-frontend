@@ -1,0 +1,23 @@
+/* Reset index.css to avoid conflicts with App.css */
+/* Clean scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240, 10%, 4%);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 98%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent-hue, 262) var(--accent-sat, 83%) var(--accent-light, 58%) / 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent-hue, 262) var(--accent-sat, 83%) var(--accent-light, 58%) / 0.6);
+}
