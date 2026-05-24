@@ -1,6 +1,6 @@
 const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') 
   ? 'http://localhost:5000' 
-  : window.location.origin;
+  : 'https://portfolio-backend-2-blf2.onrender.com';
 
 const getHeaders = () => {
   const token = localStorage.getItem('admin_token');
