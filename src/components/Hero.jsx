@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Mail, Code, Star, Award } from 'lucide-react';
 import { api } from '../api';
+import profilePhoto from '../assets/profile.jpg';
 
 export default function Hero({ settings, onContactClick }) {
   const [typedTitle, setTypedTitle] = useState('');
@@ -43,7 +44,7 @@ export default function Hero({ settings, onContactClick }) {
 
   const name = settings?.name || "Akshaya Vijay";
   const bio = settings?.bio || "Building robust full-stack applications and deploying machine learning solutions using Python, React, and cloud platforms.";
-  const avatarUrl = settings?.avatar ? `${api.base}${settings.avatar}?t=${Date.now()}` : null;
+  const avatarUrl = settings?.avatar ? `${api.base}${settings.avatar}?t=${Date.now()}` : profilePhoto;
   const resumeUrl = settings?.resume ? `${api.base}${settings.resume}` : null;
   
   const stats = settings?.stats || {
@@ -126,11 +127,12 @@ export default function Hero({ settings, onContactClick }) {
           <div className="profile-ring"></div>
           
           <div className="profile-circle">
-            {avatarUrl ? (
-              <img src={avatarUrl} alt={name} className="profile-avatar-img" />
-            ) : (
-              <div className="profile-placeholder-emoji">👩‍💻</div>
-            )}
+            <img 
+              src={avatarUrl} 
+              alt={name} 
+              className="profile-avatar-img" 
+              onError={(e) => { e.target.onerror = null; e.target.src = profilePhoto; }} 
+            />
           </div>
 
           {/* Experience Stats Badge */}
